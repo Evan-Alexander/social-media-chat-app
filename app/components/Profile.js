@@ -7,6 +7,7 @@ import { useParams, NavLink, Switch, Route } from "react-router-dom";
 import axios from "axios";
 import StateContext from "../StateContext";
 import { useImmer } from "use-immer";
+import NotFound from "./NotFound";
 
 function Profile() {
   const { username } = useParams();
@@ -21,6 +22,7 @@ function Profile() {
       isFollowing: false,
       counts: { postCount: "", followerCount: "", followingCount: "" },
     },
+    notFound: false,
   });
 
   useEffect(() => {
@@ -30,15 +32,15 @@ function Profile() {
       try {
         const response = await axios.post(
           `/profile/${username}`,
-          {
-            token: appState.user.token,
-          },
-          {
-            cancelToken: request.token,
-          }
+          { token: appState.user.token },
+          { cancelToken: request.token }
         );
         setState((draft) => {
-          draft.profileData = response.data;
+          if (response.data) {
+            draft.profileData = response.data;
+          } else {
+            draft.notFound = true;
+          }
         });
       } catch (e) {
         console.log("There was a problem.");
@@ -62,12 +64,8 @@ function Profile() {
         try {
           const response = await axios.post(
             `/addFollow/${state.profileData.profileUsername}`,
-            {
-              token: appState.user.token,
-            },
-            {
-              cancelToken: request.token,
-            }
+            { token: appState.user.token },
+            { cancelToken: request.token }
           );
           setState((draft) => {
             draft.profileData.isFollowing = true;
@@ -131,6 +129,13 @@ function Profile() {
       draft.stopFollowingRequestCount++;
     });
   };
+  if (state.notFound) {
+    return (
+      <Page title="Profile not found!">
+        <NotFound />
+      </Page>
+    );
+  }
 
   return (
     <Page title="Profile Screen">

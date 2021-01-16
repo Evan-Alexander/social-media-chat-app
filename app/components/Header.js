@@ -5,6 +5,9 @@ import HeaderLoggedIn from "./HeaderLoggedIn";
 import StateContext from "../StateContext";
 function Header(props) {
   const appState = useContext(StateContext);
+  // headerContent determines if the app shows loggedIn content or not
+  // props.staticEmpty determines if the app should use the template to render a blank template while the app is loading
+  
   const headerContent = appState.loggedIn ? (
     <HeaderLoggedIn />
   ) : (

@@ -12,6 +12,11 @@ body::after {
   display: block;
   height: 100px;
 }
+
+a {
+  color: #3b72a5;
+}
+
 .wrapper {
   min-height: 100%;
   margin-bottom: -87px;
@@ -19,7 +24,7 @@ body::after {
 }
 
 .header-bar {
-  background-color: #292929;
+  background-color: #07456c !important;
 }
 
 .container {
@@ -122,13 +127,18 @@ body::after {
   background: transparent;
 }
 
-a:hover,
+a:hover {
+  color: #2b8dd6 !important;
+}
 .btn:hover {
   color: #282828 !important;
   transition: all 0.1s ease-in-out !important;
   text-decoration: none;
 }
-
+button.btn:hover,
+a.btn:hover {
+  color: #2b8dd6 !important;
+}
 .btn-signup {
   min-width: 100px;
   color: #282828;
@@ -144,13 +154,13 @@ a:hover,
 }
 
 .btn-signup:hover {
-  border: 1px solid rgba(87, 193, 173, 0.913);
-  color: rgba(87, 193, 173, 0.913) !important;
+  border: 1px solid rgba(7, 69, 108, 0.913);
+  color: rgba(7, 69, 108, 0.913) !important;
 }
 
 .btn-signup:hover,
 .btn-signup:focus {
-  box-shadow: 0 0.5em 0.5em -0.4em rgba(87, 193, 173, 0.913);
+  box-shadow: 0 0.5em 0.5em -0.4em rgba(7, 69, 108, 0.913);
   transform: translateY(-0.25em);
 }
 

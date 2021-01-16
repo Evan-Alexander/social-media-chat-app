@@ -33,9 +33,9 @@ function EditPost(props) {
   const editReducer = (draft, action) => {
     switch (action.type) {
       case "FETCH_COMPLETE":
-        (draft.title.value = action.payload.title),
-          (draft.body.value = action.payload.body),
-          (draft.isFetching = false);
+        draft.title.value = action.payload.title;
+        draft.body.value = action.payload.body;
+        draft.isFetching = false;
         return;
       case "TITLE_CHANGE":
         draft.title.hasErrors = false;
@@ -90,8 +90,9 @@ function EditPost(props) {
         const response = await axios.get(`/post/${state.id}`, {
           cancelToken: request.token,
         });
+        console.log(response);
         if (response.data) {
-          dispatch({ type: "fetchComplete", payload: response.data });
+          dispatch({ type: "FETCH_COMPLETE", payload: response.data });
           if (appState.user.username != response.data.author.username) {
             appDispatch({
               type: "FLASHMESSAGE",
@@ -130,11 +131,13 @@ function EditPost(props) {
               cancelToken: request.token,
             }
           );
+
           dispatch({ type: "SAVE_REQUEST_FINISHED" });
           appDispatch({
             type: "FLASHMESSAGE",
             payload: "Post successfully updated.",
           });
+          props.history.push(`/profile/${appState.user.username}`);
         } catch (error) {
           console.log(error);
         }
@@ -151,13 +154,14 @@ function EditPost(props) {
     return <NotFound />;
   }
   if (state.isFetching) {
+    console.log(state);
+
     return (
       <Page title="...">
         <LoadingIcon />
       </Page>
     );
   }
-
   return (
     <Page title="Edit Post">
       <Link className="small font-weight-bold" to={`/post/${state.id}`}>
@@ -215,7 +219,10 @@ function EditPost(props) {
           )}
         </div>
 
-        <button disabled={state.isSaving} className="btn btn-primary">
+        <button
+          disabled={state.isSaving}
+          className="btn btn-primary btn-signup"
+        >
           Edit Post
         </button>
       </form>

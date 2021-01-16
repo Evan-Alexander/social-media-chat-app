@@ -10,11 +10,11 @@ import StateContext from "../StateContext";
 import DispatchContext from "../DispatchContext";
 
 function ViewSinglePost(props) {
+  const appState = useContext(StateContext);
+  const appDispatch = useContext(DispatchContext);
   const { id } = useParams();
   const [isLoading, setIsLoading] = useState(true);
   const [post, setPost] = useState();
-  const appState = useContext(StateContext);
-  const appDispatch = useContext(DispatchContext);
 
   useEffect(() => {
     const request = axios.CancelToken.source();

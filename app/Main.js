@@ -162,7 +162,9 @@ function Main() {
           >
             <Search />
           </CSSTransition>
-          <Suspense fallback="">{state.loggedIn && <Chat />}</Suspense>
+          <Suspense fallback="">
+            {state.loggedIn && <Chat />}
+          </Suspense>
           <Footer />
         </BrowserRouter>
       </DispatchContext.Provider>

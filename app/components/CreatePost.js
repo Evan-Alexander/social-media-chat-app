@@ -140,7 +140,7 @@ function CreatePost(props) {
 
   return (
     <Page title="Create New Post">
-      <h1>Create Post W Errors</h1>
+      <h1>Create Post</h1>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label htmlFor="post-title" className="text-muted mb-1">
